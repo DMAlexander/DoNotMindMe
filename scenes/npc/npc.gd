@@ -8,6 +8,7 @@ enum ENEMY_STATE { PATROLLING, CHASING, SEARCHING }
 
 
 @export var patrol_points: NodePath
+@onready var warning: Sprite2D = $warning
 
 
 @onready var sprite_2d: Sprite2D = $Sprite2D
@@ -105,6 +106,11 @@ func process_chasing() -> void:
 	set_nav_to_player()
 
 
+func process_searching() -> void:
+	if nav_agent.is_navigation_finished() == true:
+		set_state(ENEMY_STATE.PATROLLING)
+
+
 func update_movement() -> void:
 	match _state:
 		ENEMY_STATE.PATROLLING:
@@ -116,6 +122,13 @@ func update_movement() -> void:
 func set_state(new_state: ENEMY_STATE) -> void:
 	if new_state == _state:
 		return
+		
+	if _state == ENEMY_STATE.SEARCHING:
+		warning.hide()
+		
+	if new_state == ENEMY_STATE.SEARCHING:
+		warning.show()
+		
 	_state = new_state
 
 
@@ -124,9 +137,9 @@ func update_state() -> void:
 	var can_see = can_see_player()
 	
 	if can_see == true:
-		new_state == ENEMY_STATE.CHASING
-	else:
-		new_state == ENEMY_STATE.PATROLLING
+		new_state = ENEMY_STATE.CHASING
+	elif can_see == false and new_state == ENEMY_STATE.CHASING:
+		new_state = ENEMY_STATE.SEARCHING
 	
 	set_state(new_state)
 
