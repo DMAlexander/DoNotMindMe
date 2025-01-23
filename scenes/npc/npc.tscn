@@ -30,3 +30,10 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "asdasdasd
 asdasdas
 asdasd"
+
+[node name="PlayerDetect" type="Node2D" parent="."]
+
+[node name="RayCast2D" type="RayCast2D" parent="PlayerDetect"]
+rotation = -1.5708
+target_position = Vector2(0, 400)
+collision_mask = 5
