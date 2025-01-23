@@ -1,5 +1,5 @@
 extends CharacterBody2D
-
+const BULLET = preload("res://scenes/bullet/bullet.tscn")
 
 const FOV = {
 	ENEMY_STATE.PATROLLING: 60.0,
@@ -169,9 +169,16 @@ func set_label():
 	s += "FVO:%.2f %s\n" % [get_fov_angle(), ENEMY_STATE.keys()[_state]]
 	s += "FVO:%s %s\n" % [player_in_fov(), SPEED[_state]]
 	label.text = s	
+	
+func shoot() -> void:
+	var target = _player_ref.global_position
+	var b = BULLET.instantiate()
+	b.init(target, global_position)
+	get_tree().root.add_child(b)
+	SoundManager.play_laser(gasp_sound)
+	
 
-
-
-		
-		
-		
+func _on_shoot_timer_timeout() -> void:
+	if _state != ENEMY_STATE.CHASING:
+		return
+	shoot()
