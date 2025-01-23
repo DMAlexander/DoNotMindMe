@@ -3,9 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://cxh7bqsmf1mys" path="res://assets/images/soldier1_gun.png" id="1_mcooc"]
 [ext_resource type="Script" path="res://scenes/npc/npc.gd" id="1_ssi34"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yop3l"]
-radius = 13.0
-height = 42.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_nk6x1"]
+radius = 16.0
 
 [node name="NPC" type="CharacterBody2D"]
 script = ExtResource("1_ssi34")
@@ -15,7 +14,12 @@ texture = ExtResource("1_mcooc")
 offset = Vector2(10, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_yop3l")
+shape = SubResource("CircleShape2D_nk6x1")
+
+[node name="NavAgent" type="NavigationAgent2D" parent="."]
+debug_enabled = true
+debug_use_custom = true
+debug_path_custom_color = Color(0.290196, 0.160784, 1, 1)
 
 [node name="Label" type="Label" parent="."]
 offset_left = -41.0
@@ -26,8 +30,3 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "asdasdasd
 asdasdas
 asdasd"
-
-[node name="NavAgent" type="NavigationAgent2D" parent="."]
-debug_enabled = true
-debug_use_custom = true
-debug_path_custom_color = Color(0.290196, 0.160784, 1, 1)
