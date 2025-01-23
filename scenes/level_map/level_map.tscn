@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://ti3a8hkiy1t3"]
+[gd_scene load_steps=12 format=4 uid="uid://ti3a8hkiy1t3"]
 
 [ext_resource type="TileSet" uid="uid://dwoxbpjeyuamd" path="res://assets/level_tiles_bup.tres" id="1_dxrww"]
 [ext_resource type="Script" path="res://scenes/level_map/level_map.gd" id="1_eo1md"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://rqdqghl57ox2" path="res://scenes/player/player.tscn" id="5_28r40"]
 [ext_resource type="PackedScene" uid="uid://b7ye5umsq7hca" path="res://scenes/pick_up/pick_up.tscn" id="6_8tftb"]
 [ext_resource type="PackedScene" uid="uid://csn713gdcsjd" path="res://scenes/exit/exit.tscn" id="8_gjfc6"]
+[ext_resource type="PackedScene" uid="uid://srnjcqrutea5" path="res://scenes/game_ui/game_ui.tscn" id="9_x6yja"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_gvuqh"]
 vertices = PackedVector2Array(709, 712.703, 825.352, 825.102, 264.242, 805.844, 368.742, 703.281, 811.602, 271.617, 709, 560.438, 269.242, 318.258, 376.25, 554.578, 120.578, 310.672, 122.594, 438.492, -183.883, 432.5, -176.094, 256.367)
@@ -90,3 +91,7 @@ position = Vector2(356, 371)
 [node name="PickUp3" parent="PickUps" instance=ExtResource("6_8tftb")]
 
 [node name="Exit" parent="." instance=ExtResource("8_gjfc6")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GameUi" parent="CanvasLayer" instance=ExtResource("9_x6yja")]
