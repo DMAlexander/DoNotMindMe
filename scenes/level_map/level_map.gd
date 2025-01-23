@@ -16,14 +16,15 @@ func _ready() -> void:
 	game_ui.update_score(_collected, _pickups_count)
 	SignalManager.on_pickup.connect(on_pickup)
 	SignalManager.on_exit.connect(on_exit)
+	SignalManager.on_game_over.connect(on_game_over)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
-	
 
-func on_exit():
+
+func stop_all_nodes():
 	for n in get_tree().get_nodes_in_group("bullet"):
 		n.queue_free()
 		
@@ -31,7 +32,15 @@ func on_exit():
 	p.set_physics_process(false)
 	
 	for n in get_tree().get_nodes_in_group("npc"):
-		n.queue_free()
+		n.stop_action()
+
+
+func on_game_over():
+	stop_all_nodes()
+
+
+func on_exit():
+	stop_all_nodes()
 
 func check_show_exit():
 	if _collected == _pickups_count:

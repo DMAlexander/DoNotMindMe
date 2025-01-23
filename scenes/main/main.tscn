@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://d2cihd5ruxtvb"]
+
+[ext_resource type="LabelSettings" uid="uid://o587wb3hvjnh" path="res://assets/lg_d_orange_64.tres" id="1_f7555"]
+[ext_resource type="Script" path="res://scenes/main/main.gd" id="1_xrk6q"]
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xrk6q")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0.535117, 0.535117, 1)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -225.5
+offset_top = -24.5
+offset_right = 225.5
+offset_bottom = 24.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "PRESS SPACE TO PLAY"
+label_settings = ExtResource("1_f7555")

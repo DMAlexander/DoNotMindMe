@@ -41,7 +41,13 @@ func _ready() -> void:
 	set_physics_process(false)
 	create_wp()
 	_player_ref = get_tree().get_first_node_in_group("player")
-	call_deferred("set_temp_target", true)
+	call_deferred("late_setup")
+
+
+func late_setup():
+	await get_tree().physics_frame
+	await get_tree().create_timer(0.3).timeout
+	call_deferred("set_physics_process", true)
 
 
 func set_temp_target():
@@ -83,7 +89,7 @@ func raycast_to_player() -> void:
 func player_detected() -> bool:
 	var c = ray_cast_2d.get_collider()
 	if c != null:
-		return c.is_in_group("player:")
+		return c.is_in_group("player")
 	return false
 
 
@@ -188,3 +194,7 @@ func _on_shoot_timer_timeout() -> void:
 	if _state != ENEMY_STATE.CHASING:
 		return
 	shoot()
+
+
+func _on_hit_area_body_entered(body: Node2D) -> void:
+	SignalManager.on_game_over.emit()
