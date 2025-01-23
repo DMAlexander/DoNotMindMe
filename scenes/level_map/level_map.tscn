@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=4 uid="uid://ti3a8hkiy1t3"]
+[gd_scene load_steps=7 format=4 uid="uid://ti3a8hkiy1t3"]
 
 [ext_resource type="TileSet" uid="uid://dwoxbpjeyuamd" path="res://assets/level_tiles_bup.tres" id="1_dxrww"]
 [ext_resource type="TileSet" uid="uid://ctd16dkpmlbgu" path="res://assets/level_tiles.tres" id="1_fcbub"]
 [ext_resource type="PackedScene" uid="uid://dptgf01h23cts" path="res://scenes/npc/npc.tscn" id="2_560dt"]
+[ext_resource type="PackedScene" uid="uid://dopp6iqswjjvy" path="res://scenes/waypoint/waypoint.tscn" id="4_rhcnd"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_gvuqh"]
 vertices = PackedVector2Array(709, 712.703, 825.352, 825.102, 264.242, 805.844, 368.742, 703.281, 811.602, 271.617, 709, 560.438, 269.242, 318.258, 376.25, 554.578, 120.578, 310.672, 122.594, 438.492, -183.883, 432.5, -176.094, 256.367)
@@ -37,6 +38,7 @@ tile_set = ExtResource("1_dxrww")
 
 [node name="NPC" parent="." instance=ExtResource("2_560dt")]
 position = Vector2(926, 404)
+patrol_points = NodePath("../Path1")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(707, 526)
@@ -56,3 +58,20 @@ navigation_polygon = SubResource("NavigationPolygon_lc6ik")
 position = Vector2(6, 67)
 start_position = Vector2(1144, 924)
 end_position = Vector2(1142, 730)
+
+[node name="Path1" type="Node2D" parent="."]
+
+[node name="Waypoint" parent="Path1" instance=ExtResource("4_rhcnd")]
+position = Vector2(1076, 449)
+
+[node name="Waypoint2" parent="Path1" instance=ExtResource("4_rhcnd")]
+position = Vector2(1195, 553)
+
+[node name="Waypoint3" parent="Path1" instance=ExtResource("4_rhcnd")]
+position = Vector2(1191, 753)
+
+[node name="Waypoint4" parent="Path1" instance=ExtResource("4_rhcnd")]
+position = Vector2(723, 787)
+
+[node name="Waypoint5" parent="Path1" instance=ExtResource("4_rhcnd")]
+position = Vector2(744, 423)
