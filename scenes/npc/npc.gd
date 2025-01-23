@@ -28,6 +28,7 @@ enum ENEMY_STATE { PATROLLING, CHASING, SEARCHING }
 @onready var ray_cast_2d: RayCast2D = $PlayerDetect/RayCast2D
 @onready var gasp_sound: AudioStreamPlayer2D = $GaspSound
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var shoot_timer: Timer = $ShootTimer
 
 
 var _waypoints: Array = []
@@ -169,6 +170,11 @@ func set_label():
 	s += "FVO:%.2f %s\n" % [get_fov_angle(), ENEMY_STATE.keys()[_state]]
 	s += "FVO:%s %s\n" % [player_in_fov(), SPEED[_state]]
 	label.text = s	
+	
+func stop_action():
+	set_physics_process(false)
+	shoot_timer.stop()
+	
 	
 func shoot() -> void:
 	var target = _player_ref.global_position

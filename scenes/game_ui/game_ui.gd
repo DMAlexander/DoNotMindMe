@@ -8,6 +8,7 @@ extends Control
 @onready var game_over_label: Label = $ColorRect/GameOverLabel
 
 
+
 var _time: float = 0.0
 
 
@@ -21,6 +22,10 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	_time += delta
 	time_label.text = "%.1fs" % _time
+
+
+func update_score(act: int, target: int) -> void:
+	score_label.text = "%s / %s" % [ act, target ]
 
 
 func on_show_exit() -> void:
