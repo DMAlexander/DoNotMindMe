@@ -1,21 +1,33 @@
 extends CharacterBody2D
 
 
-const SPEED: float = 160.0
+const FOV = {
+	ENEMY_STATE.PATROLLING: 60.0,
+	ENEMY_STATE.CHASING: 120.0,
+	ENEMY_STATE.SEARCHING: 100.0
+}
+
+const SPEED = {
+	ENEMY_STATE.PATROLLING: 60.0,
+	ENEMY_STATE.CHASING: 100.0,
+	ENEMY_STATE.SEARCHING: 80.0
+}
 
 
 enum ENEMY_STATE { PATROLLING, CHASING, SEARCHING }
 
 
 @export var patrol_points: NodePath
+
+
 @onready var warning: Sprite2D = $warning
-
-
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var label: Label = $Label
 @onready var nav_agent: NavigationAgent2D = $NavAgent
 @onready var player_detect: Node2D = $PlayerDetect
 @onready var ray_cast_2d: RayCast2D = $PlayerDetect/RayCast2D
+@onready var gasp_sound: AudioStreamPlayer2D = $GaspSound
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 
 var _waypoints: Array = []
@@ -60,7 +72,7 @@ func get_fov_angle() -> float:
 	
 	
 func player_in_fov() -> bool:
-	return get_fov_angle() < 60.0
+	return get_fov_angle() < FOV[_state]
 	
 	
 func raycast_to_player() -> void:
@@ -82,7 +94,7 @@ func update_navigation() -> void:
 	if nav_agent.is_navigation_finished() == false:
 		var next_path_position: Vector2 = nav_agent.get_next_path_position()
 		sprite_2d.look_at(next_path_position)
-		velocity = global_position.direction_to(next_path_position) * SPEED
+		velocity = global_position.direction_to(next_path_position) * SPEED[_state]
 		move_and_slide()
 
 
@@ -128,7 +140,12 @@ func set_state(new_state: ENEMY_STATE) -> void:
 		
 	if new_state == ENEMY_STATE.SEARCHING:
 		warning.show()
-		
+	elif new_state == ENEMY_STATE.CHASING:
+		gasp_sound.play()
+		animation_player.play("alert")
+	elif new_state == ENEMY_STATE.PATROLLING:
+		animation_player.play("RESET")
+	
 	_state = new_state
 
 
@@ -149,8 +166,8 @@ func set_label():
 	s += "Reached:%s\n" % nav_agent.is_target_reachable()
 	s += "Target:%s\n" % nav_agent.target_position
 	s += "PlayerDetected:%s\n" % player_detected()
-	s += "Is In FOV:%s\n" % player_in_fov()
-	s += "FVO:%.2f\n" % [get_fov_angle(), ENEMY_STATE.keys()[_state]]
+	s += "FVO:%.2f %s\n" % [get_fov_angle(), ENEMY_STATE.keys()[_state]]
+	s += "FVO:%s %s\n" % [player_in_fov(), SPEED[_state]]
 	label.text = s	
 
 
