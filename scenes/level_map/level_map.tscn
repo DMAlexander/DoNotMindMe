@@ -1,10 +1,12 @@
-[gd_scene load_steps=8 format=4 uid="uid://ti3a8hkiy1t3"]
+[gd_scene load_steps=10 format=4 uid="uid://ti3a8hkiy1t3"]
 
 [ext_resource type="TileSet" uid="uid://dwoxbpjeyuamd" path="res://assets/level_tiles_bup.tres" id="1_dxrww"]
+[ext_resource type="Script" path="res://scenes/level_map/level_map.gd" id="1_eo1md"]
 [ext_resource type="TileSet" uid="uid://ctd16dkpmlbgu" path="res://assets/level_tiles.tres" id="1_fcbub"]
 [ext_resource type="PackedScene" uid="uid://dptgf01h23cts" path="res://scenes/npc/npc.tscn" id="2_560dt"]
 [ext_resource type="PackedScene" uid="uid://dopp6iqswjjvy" path="res://scenes/waypoint/waypoint.tscn" id="4_rhcnd"]
 [ext_resource type="PackedScene" uid="uid://rqdqghl57ox2" path="res://scenes/player/player.tscn" id="5_28r40"]
+[ext_resource type="PackedScene" uid="uid://b7ye5umsq7hca" path="res://scenes/pick_up/pick_up.tscn" id="6_8tftb"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_gvuqh"]
 vertices = PackedVector2Array(709, 712.703, 825.352, 825.102, 264.242, 805.844, 368.742, 703.281, 811.602, 271.617, 709, 560.438, 269.242, 318.258, 376.25, 554.578, 120.578, 310.672, 122.594, 438.492, -183.883, 432.5, -176.094, 256.367)
@@ -18,6 +20,7 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(1063, 885, 1116, 1210, 1504, 1223, 1501, 886)])
 
 [node name="LevelMap" type="Node2D"]
+script = ExtResource("1_eo1md")
 
 [node name="Tiles" type="Node2D" parent="."]
 
@@ -76,3 +79,11 @@ position = Vector2(744, 423)
 
 [node name="Player" parent="." instance=ExtResource("5_28r40")]
 position = Vector2(356, 371)
+
+[node name="PickUps" type="Node" parent="."]
+
+[node name="PickUp" parent="PickUps" instance=ExtResource("6_8tftb")]
+
+[node name="PickUp2" parent="PickUps" instance=ExtResource("6_8tftb")]
+
+[node name="PickUp3" parent="PickUps" instance=ExtResource("6_8tftb")]
